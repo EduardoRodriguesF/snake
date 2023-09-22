@@ -29,7 +29,16 @@ Snake::Snake(Direction direction, int x, int y, Uint32 size)
     }
 }
 
-void Snake::turn(Direction direction) { this->direction = direction; }
+void Snake::turn(Direction direction) {
+    if (this->direction == Direction::Down && direction == Direction::Up ||
+        this->direction == Direction::Up && direction == Direction::Down ||
+        this->direction == Direction::Left && direction == Direction::Right ||
+        this->direction == Direction::Right && direction == Direction::Left) {
+        return; // Illegal move
+    }
+
+    this->direction = direction;
+}
 
 void Snake::grow() { this->parts.push_back(SDL_Point{0, 0}); }
 
