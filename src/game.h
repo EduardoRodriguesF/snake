@@ -2,13 +2,15 @@
 
 #include <SDL2/SDL.h>
 #include <string>
+#include "SDL2/SDL_stdinc.h"
+#include "snake.h"
 
 const int WINDOW_WIDTH = 640;
 const int WINDOW_HEIGHT = 480;
 
-const float SCALE = 3.0;
+const float SCALE = 5.0;
 
-const int FPS = 60;
+const int FPS = 24;
 const int FRAME_MS = 1000 / FPS;
 
 const int CANVAS_WIDTH = WINDOW_WIDTH / SCALE;
@@ -25,4 +27,5 @@ private:
     SDL_Window* window;
     SDL_Renderer* renderer;
     bool running;
+    Snake snake;
 };

@@ -5,15 +5,16 @@
 int main() {
     auto game = std::make_unique<Game>();
 
+    Uint32 delta = 0;
     while (game->is_running()) {
         const int frame_start = SDL_GetTicks();
 
         game->update();
         game->draw();
 
-        const int frame_duration_ms = SDL_GetTicks() - frame_duration_ms;
-        if (FRAME_MS > frame_duration_ms) {
-            SDL_Delay(FRAME_MS - frame_duration_ms);
+        delta = SDL_GetTicks() - delta;
+        if (FRAME_MS > delta) {
+            SDL_Delay(FRAME_MS - delta);
         }
     }
 
