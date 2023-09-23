@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.27)
 
 project(snake)
 
-set(SOURCES "src/main.cpp" "src/game.cpp" "src/snake.cpp")
+set(SOURCES "src/main.cpp" "src/game.cpp" "src/snake.cpp" "src/fruit.cpp" "src/utils.cpp")
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 find_package(SDL2 REQUIRED)

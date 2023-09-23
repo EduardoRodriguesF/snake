@@ -4,11 +4,13 @@
 #include <string>
 #include "SDL2/SDL_stdinc.h"
 #include "snake.h"
+#include "fruit.h"
+#include "utils.h"
 
 const int WINDOW_WIDTH = 640;
 const int WINDOW_HEIGHT = 480;
 
-const float SCALE = 5.0;
+const float SCALE = 6.0;
 
 const int FPS = 24;
 const int FRAME_MS = 1000 / FPS;
@@ -24,8 +26,11 @@ public:
     void draw();
     bool is_running() const;
 private:
+    void handle_collision();
+    void gen_fruit();
     SDL_Window* window;
     SDL_Renderer* renderer;
     bool running;
     Snake snake;
+    Fruit fruit;
 };

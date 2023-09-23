@@ -19,6 +19,8 @@ public:
     void grow();
     void update();
     void draw(SDL_Renderer* renderer);
+    std::vector<SDL_Point> parts_pos() const;
+    SDL_Point head() const;
 private:
     Direction direction;
     std::vector<SDL_Point> parts;

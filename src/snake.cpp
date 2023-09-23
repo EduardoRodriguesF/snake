@@ -72,3 +72,6 @@ void Snake::draw(SDL_Renderer *renderer) {
         SDL_RenderDrawPoint(renderer, part.x, part.y);
     }
 }
+
+SDL_Point Snake::head() const { return this->parts.front(); }
+std::vector<SDL_Point> Snake::parts_pos() const { return this->parts; }

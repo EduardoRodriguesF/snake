@@ -2,11 +2,16 @@
 #include "SDL2/SDL_events.h"
 #include "SDL2/SDL_keycode.h"
 #include "SDL2/SDL_render.h"
+#include "fruit.h"
+#include <algorithm>
+#include <cstdlib>
 #include <iostream>
+#include <random>
 #include <stdexcept>
 
 Game::Game()
-    : running(true), snake(Direction::Right, 12, CANVAS_HEIGHT / 2, 10) {
+    : running(true), snake(Direction::Right, 12, CANVAS_HEIGHT / 2, 10),
+      fruit(0, 0) {
     this->window = SDL_CreateWindow("Snake", SDL_WINDOWPOS_CENTERED,
                                     SDL_WINDOWPOS_CENTERED, WINDOW_WIDTH,
                                     WINDOW_HEIGHT, SDL_WINDOW_OPENGL);
@@ -21,6 +26,8 @@ Game::Game()
     }
 
     SDL_RenderSetScale(renderer, SCALE, SCALE);
+
+    gen_fruit();
 }
 
 Game::~Game() {
@@ -56,7 +63,33 @@ void Game::update() {
         }
     }
 
+    this->handle_collision();
+
     snake.update();
+}
+
+void Game::gen_fruit() {
+    SDL_Point location;
+    auto snake_locations = this->snake.parts_pos();
+    std::random_device rand_dev;
+    std::mt19937 generator(rand_dev());
+    std::uniform_int_distribution<int>  dist_width(0, CANVAS_WIDTH - 1);
+    std::uniform_int_distribution<int>  dist_height(0, CANVAS_HEIGHT - 1);
+
+    do {
+        location.x = dist_width(generator);
+        location.y = dist_height(generator);
+    } while (std::find(snake_locations.begin(), snake_locations.end(),
+                       location) != snake_locations.end());
+
+    this->fruit.set_position(location);
+}
+
+void Game::handle_collision() {
+    if (this->snake.head() == this->fruit.position()) {
+        snake.grow();
+        gen_fruit();
+    }
 }
 
 void Game::draw() {
@@ -65,6 +98,7 @@ void Game::draw() {
 
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
     snake.draw(renderer);
+    fruit.draw(renderer);
 
     SDL_RenderPresent(renderer);
 }
