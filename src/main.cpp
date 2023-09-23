@@ -12,7 +12,7 @@ int main() {
         game->update();
         game->draw();
 
-        delta = SDL_GetTicks() - delta;
+        delta = SDL_GetTicks() - frame_start;
         if (FRAME_MS > delta) {
             SDL_Delay(FRAME_MS - delta);
         }
