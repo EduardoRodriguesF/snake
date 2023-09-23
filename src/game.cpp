@@ -25,7 +25,7 @@ Game::Game()
         throw std::runtime_error("Failed to create renderer");
     }
 
-    SDL_RenderSetScale(renderer, SCALE, SCALE);
+    SDL_RenderSetLogicalSize(renderer, CANVAS_WIDTH, CANVAS_HEIGHT);
 
     gen_fruit();
 }
